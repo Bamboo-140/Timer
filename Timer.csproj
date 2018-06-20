@@ -138,13 +138,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\alarm_007.wav">
-    </EmbeddedResource>
+    <None Include="Resources\alarm_007.wav" />
     <None Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="icon.ico" />
-    <EmbeddedResource Include="Resources\Clock-icon %282%29.png" />
+    <None Include="icon.ico" />
+    <None Include="Resources\Clock-icon %282%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

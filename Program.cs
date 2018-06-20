@@ -15,7 +15,9 @@ namespace Timer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Form1 app = new Form1();
+            app.StartPosition = FormStartPosition.CenterScreen;
+            Application.Run(app);
         }
     }
 }

@@ -260,6 +260,7 @@
             // 
             // noteText
             // 
+            this.noteText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.noteText.Location = new System.Drawing.Point(69, 78);
             this.noteText.Name = "noteText";
             this.noteText.Size = new System.Drawing.Size(164, 21);
@@ -268,6 +269,7 @@
             // 
             // tipsLabel
             // 
+            this.tipsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.tipsLabel.AutoSize = true;
             this.tipsLabel.Location = new System.Drawing.Point(10, 83);
             this.tipsLabel.Name = "tipsLabel";
