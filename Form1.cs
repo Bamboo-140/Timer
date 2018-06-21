@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Media;
 using System.IO;
-//using Interop.WMPLib.dll;
+//using global::Timer.MyResource.MediaPlayer;
 
 namespace Timer
 {
@@ -20,6 +20,9 @@ namespace Timer
         StringBuilder stoptime = new StringBuilder();
         StringBuilder message = new StringBuilder();
         SoundPlayer ringtone = new SoundPlayer();
+        NumericUpDown currentBox;    //用于开启手动输入
+        int i = 0;
+        //int before = 0;
 
         int h = 0, m = 0, s = 0, ms = 0;
 
@@ -156,27 +159,30 @@ namespace Timer
             functions.Visible = false;
             groupBox1.Visible = false;
             this.Icon = MyResource.icon;
-            //if (Convert.ToInt32(this.timeNow.Hour) > 12)
-            //{
-            //    this.PMLabel.Enabled = true;
-            //    this.AMLabel.Enabled = false;
-            //}
-            if (Convert.ToInt32(DateTime.Now.Hour) > 12)
-            {
-                this.PMLabel.Enabled = true;
-                this.AMLabel.Enabled = false;
-            }
-            else if (Convert.ToInt32(DateTime.Now.Hour) < 12)
-            {
-                this.PMLabel.Enabled = false;
-                this.AMLabel.Enabled = true;
-            }
             this.Height = 210;             //XP&Win7:190; Win8-Win10: 210
             this.Width =  335;             //335
             this.functions.Height = 73;
             timer3.Enabled = false;
             timer4.Enabled = false;
             stopwatch.Enabled = false;
+            #region 用下面的函数代替了
+            //if (Convert.ToInt32(this.timeNow.Hour) > 12)
+            //{
+            //    this.PMLabel.Enabled = true;
+            //    this.AMLabel.Enabled = false;
+            //}
+            //if (Convert.ToInt32(DateTime.Now.Hour) > 12)
+            //{
+            //    this.PMLabel.Enabled = true;
+            //    this.AMLabel.Enabled = false;
+            //}
+            //else if (Convert.ToInt32(DateTime.Now.Hour) < 12)
+            //{
+            //    this.PMLabel.Enabled = false;
+            //    this.AMLabel.Enabled = true;
+            //}
+            #endregion
+            funcAMPM(exchange.Checked);
         }
         /// <summary>
         /// exchange_Button
@@ -185,22 +191,25 @@ namespace Timer
         /// <param name="e"></param>
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (exchange.Checked)
-            {
-                format.Remove(0, format.Length);
-                format.Append("HH:mm:ss");
-                AMLabel.Visible = false;
-                PMLabel.Visible = false;
-                timer2.Enabled = false;
-            }
-            else
-            {
-                format.Remove (0,format.Length);
-                format.Append("hh:mm:ss");
-                AMLabel.Visible = true;
-                PMLabel.Visible = true;
-                timer2.Enabled = true;
-            }
+            #region 用下面的函数代替了
+            //if (exchange.Checked)
+            //{
+            //    format.Remove(0, format.Length);
+            //    format.Append("HH:mm:ss");
+            //    //AMLabel.Visible = false;
+            //    //PMLabel.Visible = false;
+            //    //timer2.Enabled = false;
+            //}
+            //else
+            //{
+            //    format.Remove (0,format.Length);
+            //    format.Append("hh:mm:ss");
+            //    //AMLabel.Visible = true;
+            //    //PMLabel.Visible = true;
+            //    //timer2.Enabled = true;
+            //}
+            #endregion
+            funcAMPM(exchange.Checked);
         }
         /// <summary>
         /// AM&PM Label
@@ -387,15 +396,22 @@ namespace Timer
                 this.hourO.Value = Convert.ToInt32(DateTime.Now.Hour);
                 this.minO.Value = Convert.ToInt32(DateTime.Now.Minute);
                 timer1.Enabled = true;
-                timer2.Enabled = true;
-                PMLabel.Visible = true;
-                AMLabel.Visible = true;
+
+
+
                 panel1.Visible = false;                     //TimerFuncPanel
                 panel2.Visible = true;
 
                 //tips
                 if (moreSet.Visible == false)
                     moreSet.Visible = true;
+
+                #region 用下面的funcAMPM代替了
+                //timer2.Enabled = true;
+                //PMLabel.Visible = true;
+                //AMLabel.Visible = true;
+                #endregion
+                funcAMPM(exchange.Checked);
                 //
             }
         }
@@ -426,7 +442,6 @@ namespace Timer
                 ringtone.Stop();
             }
         }
-
 
         private void pauseButton_Click(object sender, EventArgs e)
         {
@@ -570,27 +585,12 @@ namespace Timer
                 e.Cancel = true;
         }
 
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (this.WindowState == FormWindowState.Minimized)
-            {
-                this.WindowState = FormWindowState.Normal;
-                this.ShowInTaskbar = true;
-                notifyIcon1.Visible = false;
-            }
-            else
-            {
-                this.WindowState = FormWindowState.Minimized;
-                notifyIcon1.Visible = true;
-            }
-        }
-
         private void show_Click(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
             {
                 this.WindowState = FormWindowState.Normal;
-                notifyIcon1.Visible = false;
+                //notifyIcon1.Visible = false;
             }
         }
 
@@ -605,18 +605,21 @@ namespace Timer
 
         private void Form1_Resize(object sender, EventArgs e)
         {
+            
             if (this.WindowState == FormWindowState.Minimized)
             {
                 this.ShowInTaskbar = false;
-                notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(500, "小提示", "最小化后我到这里了喔！",ToolTipIcon.Info);
+                //notifyIcon1.Visible = true;
                 this.contextMenuStrip1.Items.Add(show);
+                if(i <= 1)
+                    notifyIcon1.ShowBalloonTip(500, "小提示", "最小化后我到这里了喔！", ToolTipIcon.Info);
+                i++;
             }
             else
             {
-                //this.contextMenuStrip1.Items.Remove(show);
+                this.contextMenuStrip1.Items.Remove(show);
                 this.ShowInTaskbar = true;
-                notifyIcon1.Visible = false;
+                //notifyIcon1.Visible = false;
             }
         }
 
@@ -640,6 +643,300 @@ namespace Timer
                 noteText.Visible = false;
                 moreSet.Text = "展开";
             }
+        }
+
+
+        private void notifyIcon1_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs mouseClick = (MouseEventArgs)e;
+
+            if(mouseClick.Button == MouseButtons.Left)
+            {
+                if (this.WindowState == FormWindowState.Minimized)
+                {
+                    this.WindowState = FormWindowState.Normal;
+                    this.ShowInTaskbar = true;
+                    //notifyIcon1.Visible = false;
+                }
+                else
+                {
+                    this.WindowState = FormWindowState.Minimized;
+                    //notifyIcon1.Visible = true;
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// 显示上午下午标签
+        /// </summary>
+        /// <param name="exchange">是否勾选24小时制</param>
+        void funcAMPM( bool exchange)
+        {
+            if (!exchange)   //如果没有选中
+            {
+                PMLabel.Visible = true;
+                AMLabel.Visible = true;
+                timer2.Enabled = true;
+                format.Remove(0, format.Length);
+                format.Append("hh:mm:ss");
+                if (Convert.ToInt32(DateTime.Now.Hour) > 12)
+                {
+                    this.PMLabel.Enabled = true;
+                    this.AMLabel.Enabled = false;
+                }
+                else if (Convert.ToInt32(DateTime.Now.Hour) < 12)
+                {
+                    this.PMLabel.Enabled = false;
+                    this.AMLabel.Enabled = true;
+                }
+            }
+            else    //选中了
+            {
+                format.Remove(0, format.Length);
+                format.Append("HH:mm:ss");
+                this.PMLabel.Visible = false;
+                this.AMLabel.Visible = false;
+                timer2.Enabled = false;
+            }
+        }
+
+        private void ManualInput_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveControl.GetType().Equals(this.hourO.GetType()))
+            {
+                currentBox = (NumericUpDown)(this.ActiveControl);
+                //before = Convert.ToInt32(currentBox.Value);
+                currentBox.ReadOnly = false;
+                ManualInput.Enabled = false;
+                CancelInput.Enabled = true;
+
+            }
+            else
+                return;
+        }
+
+
+        private void CancelInput_Click(object sender, EventArgs e)
+        {
+            //currentBox.Value = before;
+            CancelInput.Enabled = false;
+            ManualInput.Enabled = true;
+            currentBox.ReadOnly = true;
+        }
+
+        //private void MinValue_Click(object sender, EventArgs e)
+        //{
+        //    currentBox.Value = currentBox.Minimum;
+        //}
+
+        //private void MaxValue_Click(object sender, EventArgs e)
+        //{
+        //    currentBox.Value = currentBox.Maximum;
+        //}
+
+        private void Timer_Hour_Leave(object sender, EventArgs e)
+        {
+            LoseFocus(Timer_Hour.ReadOnly);
+            Timer_Hour.ReadOnly = true;
+
+        }
+
+        void LoseFocus(bool readOnly)
+        {
+            if (!readOnly)
+            {
+                Timer_Hour.ReadOnly = true;
+                ManualInput.Enabled = true;
+                CancelInput.Enabled = false;
+            }
+        }
+
+        private void Timer_Min_Leave(object sender, EventArgs e)
+        {
+            LoseFocus(Timer_Min.ReadOnly);
+            Timer_Min.ReadOnly = true;
+        }
+
+        private void Timer_Sec_Leave(object sender, EventArgs e)
+        {
+            LoseFocus(Timer_Sec.ReadOnly);
+            Timer_Sec.ReadOnly = true;
+        }
+
+        private void minO_Leave(object sender, EventArgs e)
+        {
+            LoseFocus(minO.ReadOnly);
+            minO.ReadOnly = true;
+        }
+
+        private void hourO_Leave(object sender, EventArgs e)
+        {
+            LoseFocus(hourO.ReadOnly);
+            hourO.ReadOnly = true;
+        }
+
+        private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
+        {
+            this.contextMenuStrip2.Items.Remove (MinValue);
+            this.contextMenuStrip2.Items.Remove ( MaxValue);
+        }
+
+
+        #region 可能用到的代码
+        private void Timer_Hour_MouseDown(object sender, MouseEventArgs e)
+        {
+            //MouseEventArgs mouseClick = (MouseEventArgs)e;
+            //if (mouseClick.Button == MouseButtons.Right)
+            //{
+            Timer_Hour.Focus();
+            //    //if (Timer_Hour.Value > 0)
+            //    //{
+            //    //    Timer_Hour.Value = Timer_Hour.Minimum;
+            //    //}
+            //    //else
+            //    //{
+            //    //    Timer_Hour.Value = Timer_Hour.Maximum;
+            //    //}
+            //}
+        }
+
+        private void Timer_Min_MouseDown(object sender, MouseEventArgs e)
+        {
+            //MouseEventArgs mouseClick = (MouseEventArgs)e;
+            //if (mouseClick.Button == MouseButtons.Right)
+            //{
+            Timer_Min.Focus();
+            //    //if (Timer_Min.Value > 0)
+            //    //{
+            //    //    Timer_Min.Value = Timer_Min.Minimum;
+            //    //}
+            //    //else
+            //    //{
+            //    //    Timer_Min.Value = Timer_Min.Maximum;
+            //    //}
+            //}
+        }
+
+        private void Timer_Sec_MouseDown(object sender, MouseEventArgs e)
+        {
+            //MouseEventArgs mouseClick = (MouseEventArgs)e;
+            //if (mouseClick.Button == MouseButtons.Right)
+            //{
+            Timer_Sec.Focus();
+            //    //if (Timer_Sec.Value > 0)
+            //    //{
+            //    //    Timer_Sec.Value = Timer_Sec.Minimum;
+            //    //}
+            //    //else
+            //    //{
+            //    //    Timer_Sec.Value = Timer_Sec.Maximum;
+            //    //}
+            //}
+        }
+
+        private void minO_MouseDown(object sender, MouseEventArgs e)
+        {
+            //MouseEventArgs mouseClick = (MouseEventArgs)e;
+            //if (mouseClick.Button == MouseButtons.Right)
+            //{
+            minO.Focus();
+            //    //if (minO.Value > 0)
+            //    //{
+            //    //    minO.Value = minO.Minimum;
+            //    //}
+            //    //else
+            //    //{
+            //    //    minO.Value = minO.Maximum;
+            //    //}
+            //}
+        }
+
+        private void hourO_MouseDown(object sender, MouseEventArgs e)
+        {
+            //MouseEventArgs mouseClick = (MouseEventArgs)e;
+            //if (mouseClick.Button == MouseButtons.Right)
+            //{
+
+            hourO.Focus();
+
+            //if (hourO.Value > 0)
+            //{
+            //    hourO.Value = hourO.Minimum;
+            //}
+            //else
+            //{
+            //    hourO.Value = hourO.Maximum;
+            //}
+            //}
+        }
+
+        #endregion
+
+        private void Timer_Hour_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (Timer_Hour.Value > 0)
+            {
+                Timer_Hour.Value = Timer_Hour.Minimum;
+            }
+            else
+            {
+                Timer_Hour.Value = Timer_Hour.Maximum;
+            }
+
+        }
+
+        private void Timer_Min_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (Timer_Min.Value > 0)
+            {
+                Timer_Min.Value = Timer_Min.Minimum;
+            }
+            else
+            {
+                Timer_Min.Value = Timer_Min.Maximum;
+            }
+
+        }
+
+        private void Timer_Sec_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (Timer_Sec.Value > 0)
+            {
+                Timer_Sec.Value = Timer_Sec.Minimum;
+            }
+            else
+            {
+                Timer_Sec.Value = Timer_Sec.Maximum;
+            }
+
+        }
+
+        private void minO_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (minO.Value > 0)
+            {
+                minO.Value = minO.Minimum;
+            }
+            else
+            {
+                minO.Value = minO.Maximum;
+            }
+        }
+
+        private void hourO_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (hourO.Value > 0)
+            {
+                hourO.Value = hourO.Minimum;
+            }
+            else
+            {
+                hourO.Value = hourO.Maximum;
+            }
+            
+
         }
     }
 }

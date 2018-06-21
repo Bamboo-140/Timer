@@ -86,5 +86,12 @@ namespace Timer {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        public static byte[] MediaPlayer {
+            get {
+                object obj = ResourceManager.GetObject("MediaPlayer", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

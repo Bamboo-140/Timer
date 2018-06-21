@@ -54,6 +54,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.Timer_Hour = new System.Windows.Forms.NumericUpDown();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ManualInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.CancelInput = new System.Windows.Forms.ToolStripMenuItem();
+            this.MinValue = new System.Windows.Forms.ToolStripMenuItem();
+            this.MaxValue = new System.Windows.Forms.ToolStripMenuItem();
             this.Timer_Min = new System.Windows.Forms.NumericUpDown();
             this.Timer_Sec = new System.Windows.Forms.NumericUpDown();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -76,6 +81,7 @@
             this.functions.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Timer_Hour)).BeginInit();
+            this.contextMenuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Timer_Min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Timer_Sec)).BeginInit();
             this.panel2.SuspendLayout();
@@ -169,7 +175,7 @@
             // timer2
             // 
             this.timer2.Enabled = true;
-            this.timer2.Interval = 6000;
+            this.timer2.Interval = 60000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // notifyIcon1
@@ -178,7 +184,7 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "计时器";
             this.notifyIcon1.Visible = true;
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
             // 
             // contextMenuStrip1
             // 
@@ -321,14 +327,63 @@
             // 
             // Timer_Hour
             // 
+            this.Timer_Hour.ContextMenuStrip = this.contextMenuStrip2;
             this.Timer_Hour.Location = new System.Drawing.Point(14, 8);
+            this.Timer_Hour.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
             this.Timer_Hour.Name = "Timer_Hour";
+            this.Timer_Hour.ReadOnly = true;
             this.Timer_Hour.Size = new System.Drawing.Size(43, 21);
             this.Timer_Hour.TabIndex = 2;
             this.Timer_Hour.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Timer_Hour.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Timer_Hour_MouseDoubleClick);
+            this.Timer_Hour.Leave += new System.EventHandler(this.Timer_Hour_Leave);
+            this.Timer_Hour.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Timer_Hour_MouseDown);
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ManualInput,
+            this.CancelInput,
+            this.MinValue,
+            this.MaxValue});
+            this.contextMenuStrip2.Name = "contextMenuStrip1";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(125, 92);
+            this.contextMenuStrip2.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip2_Opening);
+            // 
+            // ManualInput
+            // 
+            this.ManualInput.Name = "ManualInput";
+            this.ManualInput.Size = new System.Drawing.Size(124, 22);
+            this.ManualInput.Text = "手动输入";
+            this.ManualInput.Click += new System.EventHandler(this.ManualInput_Click);
+            // 
+            // CancelInput
+            // 
+            this.CancelInput.Enabled = false;
+            this.CancelInput.Name = "CancelInput";
+            this.CancelInput.Size = new System.Drawing.Size(124, 22);
+            this.CancelInput.Text = "取消输入";
+            this.CancelInput.Click += new System.EventHandler(this.CancelInput_Click);
+            // 
+            // MinValue
+            // 
+            this.MinValue.Name = "MinValue";
+            this.MinValue.Size = new System.Drawing.Size(124, 22);
+            this.MinValue.Text = "最小值";
+            // 
+            // MaxValue
+            // 
+            this.MaxValue.Name = "MaxValue";
+            this.MaxValue.Size = new System.Drawing.Size(124, 22);
+            this.MaxValue.Text = "最大值";
             // 
             // Timer_Min
             // 
+            this.Timer_Min.ContextMenuStrip = this.contextMenuStrip2;
             this.Timer_Min.Location = new System.Drawing.Point(81, 8);
             this.Timer_Min.Maximum = new decimal(new int[] {
             59,
@@ -336,12 +391,17 @@
             0,
             0});
             this.Timer_Min.Name = "Timer_Min";
+            this.Timer_Min.ReadOnly = true;
             this.Timer_Min.Size = new System.Drawing.Size(43, 21);
             this.Timer_Min.TabIndex = 1;
             this.Timer_Min.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Timer_Min.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Timer_Min_MouseDoubleClick);
+            this.Timer_Min.Leave += new System.EventHandler(this.Timer_Min_Leave);
+            this.Timer_Min.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Timer_Min_MouseDown);
             // 
             // Timer_Sec
             // 
+            this.Timer_Sec.ContextMenuStrip = this.contextMenuStrip2;
             this.Timer_Sec.Location = new System.Drawing.Point(148, 8);
             this.Timer_Sec.Maximum = new decimal(new int[] {
             59,
@@ -349,9 +409,13 @@
             0,
             0});
             this.Timer_Sec.Name = "Timer_Sec";
+            this.Timer_Sec.ReadOnly = true;
             this.Timer_Sec.Size = new System.Drawing.Size(43, 21);
             this.Timer_Sec.TabIndex = 0;
             this.Timer_Sec.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Timer_Sec.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Timer_Sec_MouseDoubleClick);
+            this.Timer_Sec.Leave += new System.EventHandler(this.Timer_Sec_Leave);
+            this.Timer_Sec.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Timer_Sec_MouseDown);
             // 
             // panel2
             // 
@@ -394,6 +458,7 @@
             // 
             // hourO
             // 
+            this.hourO.ContextMenuStrip = this.contextMenuStrip2;
             this.hourO.Location = new System.Drawing.Point(85, 8);
             this.hourO.Maximum = new decimal(new int[] {
             65536,
@@ -401,12 +466,17 @@
             0,
             0});
             this.hourO.Name = "hourO";
+            this.hourO.ReadOnly = true;
             this.hourO.Size = new System.Drawing.Size(39, 21);
             this.hourO.TabIndex = 14;
             this.hourO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.hourO.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.hourO_MouseDoubleClick);
+            this.hourO.Leave += new System.EventHandler(this.hourO_Leave);
+            this.hourO.MouseDown += new System.Windows.Forms.MouseEventHandler(this.hourO_MouseDown);
             // 
             // minO
             // 
+            this.minO.ContextMenuStrip = this.contextMenuStrip2;
             this.minO.Location = new System.Drawing.Point(155, 8);
             this.minO.Maximum = new decimal(new int[] {
             65536,
@@ -414,9 +484,13 @@
             0,
             0});
             this.minO.Name = "minO";
+            this.minO.ReadOnly = true;
             this.minO.Size = new System.Drawing.Size(39, 21);
             this.minO.TabIndex = 15;
             this.minO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.minO.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.minO_MouseDoubleClick);
+            this.minO.Leave += new System.EventHandler(this.minO_Leave);
+            this.minO.MouseDown += new System.Windows.Forms.MouseEventHandler(this.minO_MouseDown);
             // 
             // TimerFunc
             // 
@@ -524,6 +598,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Timer_Hour)).EndInit();
+            this.contextMenuStrip2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Timer_Min)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Timer_Sec)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -579,6 +654,11 @@
         private System.Windows.Forms.TextBox noteText;
         private System.Windows.Forms.Button moreSet;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem ManualInput;
+        private System.Windows.Forms.ToolStripMenuItem CancelInput;
+        private System.Windows.Forms.ToolStripMenuItem MinValue;
+        private System.Windows.Forms.ToolStripMenuItem MaxValue;
     }
 }
 
