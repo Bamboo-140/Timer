@@ -1,0 +1,16 @@
+F:\wtz\tool\Timer\Timer\obj\Debug\ResolveAssemblyReference.cache
+F:\wtz\tool\Timer\Timer\obj\Debug\Timer.Form1.resources
+F:\wtz\tool\Timer\Timer\obj\Debug\Timer.Properties.Resources.resources
+F:\wtz\tool\Timer\Timer\obj\Debug\Timer.csproj.GenerateResource.Cache
+F:\wtz\tool\Timer\Timer\bin\Debug\Timer.exe
+F:\wtz\tool\Timer\Timer\bin\Debug\Timer.pdb
+F:\wtz\tool\Timer\Timer\obj\Debug\Timer.exe
+F:\wtz\tool\Timer\Timer\obj\Debug\Timer.pdb
+E:\Projects\Timer\Timer\obj\Debug\Timer.exe
+E:\Projects\Timer\Timer\obj\Debug\Timer.pdb
+E:\Projects\Timer\Timer\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\Timer\Timer\obj\Debug\Timer.Form1.resources
+E:\Projects\Timer\Timer\obj\Debug\Timer.Properties.Resources.resources
+E:\Projects\Timer\Timer\obj\Debug\Timer.csproj.GenerateResource.Cache
+E:\Projects\Timer\Timer\bin\Debug\Timer.exe
+E:\Projects\Timer\Timer\bin\Debug\Timer.pdb
