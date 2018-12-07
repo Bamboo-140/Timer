@@ -36,6 +36,7 @@
             this.displayFun = new System.Windows.Forms.CheckBox();
             this.TimeLabel = new System.Windows.Forms.Label();
             this.setPanel = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.AMLabel = new System.Windows.Forms.Label();
             this.PMLabel = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
@@ -46,6 +47,7 @@
             this.stopwatchFunc = new System.Windows.Forms.RadioButton();
             this.AlarmFunc = new System.Windows.Forms.RadioButton();
             this.functions = new System.Windows.Forms.GroupBox();
+            this.chk_Shutdown = new System.Windows.Forms.CheckBox();
             this.moreSet = new System.Windows.Forms.Button();
             this.noteText = new System.Windows.Forms.TextBox();
             this.tipsLabel = new System.Windows.Forms.Label();
@@ -76,7 +78,7 @@
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.label7 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cmb_ShutDownOption = new System.Windows.Forms.ComboBox();
             this.setPanel.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.functions.SuspendLayout();
@@ -154,6 +156,17 @@
             this.setPanel.TabStop = false;
             this.setPanel.Text = "设置";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(206, 20);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(72, 16);
+            this.checkBox1.TabIndex = 3;
+            this.checkBox1.Text = "前端显示";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+            // 
             // AMLabel
             // 
             this.AMLabel.AutoSize = true;
@@ -194,14 +207,14 @@
             this.show,
             this.close});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(130, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(141, 48);
             this.contextMenuStrip1.Text = "File";
             // 
             // show
             // 
             this.show.Name = "show";
             this.show.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
-            this.show.Size = new System.Drawing.Size(129, 22);
+            this.show.Size = new System.Drawing.Size(140, 22);
             this.show.Text = "显示";
             this.show.Click += new System.EventHandler(this.show_Click);
             // 
@@ -209,7 +222,7 @@
             // 
             this.close.Name = "close";
             this.close.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-            this.close.Size = new System.Drawing.Size(129, 22);
+            this.close.Size = new System.Drawing.Size(140, 22);
             this.close.Text = "关闭";
             this.close.Click += new System.EventHandler(this.close_Click);
             // 
@@ -237,6 +250,8 @@
             // 
             // functions
             // 
+            this.functions.Controls.Add(this.cmb_ShutDownOption);
+            this.functions.Controls.Add(this.chk_Shutdown);
             this.functions.Controls.Add(this.moreSet);
             this.functions.Controls.Add(this.noteText);
             this.functions.Controls.Add(this.tipsLabel);
@@ -255,6 +270,16 @@
             this.functions.TabStop = false;
             this.functions.Text = "功能";
             // 
+            // chk_Shutdown
+            // 
+            this.chk_Shutdown.AutoSize = true;
+            this.chk_Shutdown.Location = new System.Drawing.Point(173, 81);
+            this.chk_Shutdown.Name = "chk_Shutdown";
+            this.chk_Shutdown.Size = new System.Drawing.Size(15, 14);
+            this.chk_Shutdown.TabIndex = 23;
+            this.chk_Shutdown.UseVisualStyleBackColor = true;
+            this.chk_Shutdown.CheckedChanged += new System.EventHandler(this.chk_Shutdown_CheckedChanged);
+            // 
             // moreSet
             // 
             this.moreSet.Location = new System.Drawing.Point(187, 11);
@@ -271,7 +296,7 @@
             this.noteText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.noteText.Location = new System.Drawing.Point(69, 78);
             this.noteText.Name = "noteText";
-            this.noteText.Size = new System.Drawing.Size(164, 21);
+            this.noteText.Size = new System.Drawing.Size(98, 21);
             this.noteText.TabIndex = 21;
             this.noteText.Visible = false;
             // 
@@ -341,8 +366,8 @@
             this.Timer_Hour.Size = new System.Drawing.Size(43, 21);
             this.Timer_Hour.TabIndex = 2;
             this.Timer_Hour.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Timer_Hour.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Timer_Hour_MouseDoubleClick);
             this.Timer_Hour.Leave += new System.EventHandler(this.Timer_Hour_Leave);
+            this.Timer_Hour.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Timer_Hour_MouseDoubleClick);
             this.Timer_Hour.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Timer_Hour_MouseDown);
             // 
             // contextMenuStrip2
@@ -353,13 +378,13 @@
             this.MinValue,
             this.MaxValue});
             this.contextMenuStrip2.Name = "contextMenuStrip1";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(119, 92);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(125, 92);
             this.contextMenuStrip2.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip2_Opening);
             // 
             // ManualInput
             // 
             this.ManualInput.Name = "ManualInput";
-            this.ManualInput.Size = new System.Drawing.Size(118, 22);
+            this.ManualInput.Size = new System.Drawing.Size(124, 22);
             this.ManualInput.Text = "手动输入";
             this.ManualInput.Click += new System.EventHandler(this.ManualInput_Click);
             // 
@@ -367,20 +392,20 @@
             // 
             this.CancelInput.Enabled = false;
             this.CancelInput.Name = "CancelInput";
-            this.CancelInput.Size = new System.Drawing.Size(118, 22);
+            this.CancelInput.Size = new System.Drawing.Size(124, 22);
             this.CancelInput.Text = "取消输入";
             this.CancelInput.Click += new System.EventHandler(this.CancelInput_Click);
             // 
             // MinValue
             // 
             this.MinValue.Name = "MinValue";
-            this.MinValue.Size = new System.Drawing.Size(118, 22);
+            this.MinValue.Size = new System.Drawing.Size(124, 22);
             this.MinValue.Text = "最小值";
             // 
             // MaxValue
             // 
             this.MaxValue.Name = "MaxValue";
-            this.MaxValue.Size = new System.Drawing.Size(118, 22);
+            this.MaxValue.Size = new System.Drawing.Size(124, 22);
             this.MaxValue.Text = "最大值";
             // 
             // Timer_Min
@@ -397,8 +422,8 @@
             this.Timer_Min.Size = new System.Drawing.Size(43, 21);
             this.Timer_Min.TabIndex = 1;
             this.Timer_Min.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Timer_Min.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Timer_Min_MouseDoubleClick);
             this.Timer_Min.Leave += new System.EventHandler(this.Timer_Min_Leave);
+            this.Timer_Min.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Timer_Min_MouseDoubleClick);
             this.Timer_Min.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Timer_Min_MouseDown);
             // 
             // Timer_Sec
@@ -415,8 +440,8 @@
             this.Timer_Sec.Size = new System.Drawing.Size(43, 21);
             this.Timer_Sec.TabIndex = 0;
             this.Timer_Sec.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Timer_Sec.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Timer_Sec_MouseDoubleClick);
             this.Timer_Sec.Leave += new System.EventHandler(this.Timer_Sec_Leave);
+            this.Timer_Sec.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Timer_Sec_MouseDoubleClick);
             this.Timer_Sec.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Timer_Sec_MouseDown);
             // 
             // panel2
@@ -472,8 +497,8 @@
             this.hourO.Size = new System.Drawing.Size(39, 21);
             this.hourO.TabIndex = 14;
             this.hourO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.hourO.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.hourO_MouseDoubleClick);
             this.hourO.Leave += new System.EventHandler(this.hourO_Leave);
+            this.hourO.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.hourO_MouseDoubleClick);
             this.hourO.MouseDown += new System.Windows.Forms.MouseEventHandler(this.hourO_MouseDown);
             // 
             // minO
@@ -490,8 +515,8 @@
             this.minO.Size = new System.Drawing.Size(39, 21);
             this.minO.TabIndex = 15;
             this.minO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.minO.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.minO_MouseDoubleClick);
             this.minO.Leave += new System.EventHandler(this.minO_Leave);
+            this.minO.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.minO_MouseDoubleClick);
             this.minO.MouseDown += new System.Windows.Forms.MouseEventHandler(this.minO_MouseDown);
             // 
             // TimerFunc
@@ -573,22 +598,24 @@
             this.label7.Text = " ";
             this.label7.Visible = false;
             // 
-            // checkBox1
+            // cmb_ShutDownOption
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(206, 20);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(72, 16);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "前端显示";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+            this.cmb_ShutDownOption.FormattingEnabled = true;
+            this.cmb_ShutDownOption.Items.AddRange(new object[] {
+            "关机",
+            "休眠",
+            "重启"});
+            this.cmb_ShutDownOption.Location = new System.Drawing.Point(187, 79);
+            this.cmb_ShutDownOption.Name = "cmb_ShutDownOption";
+            this.cmb_ShutDownOption.Size = new System.Drawing.Size(46, 20);
+            this.cmb_ShutDownOption.TabIndex = 24;
+            this.cmb_ShutDownOption.Text = "关机";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 293);
+            this.ClientSize = new System.Drawing.Size(510, 293);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.functions);
@@ -600,8 +627,8 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "计时器";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.setPanel.ResumeLayout(false);
             this.setPanel.PerformLayout();
@@ -673,6 +700,8 @@
         private System.Windows.Forms.ToolStripMenuItem MinValue;
         private System.Windows.Forms.ToolStripMenuItem MaxValue;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chk_Shutdown;
+        private System.Windows.Forms.ComboBox cmb_ShutDownOption;
     }
 }
 

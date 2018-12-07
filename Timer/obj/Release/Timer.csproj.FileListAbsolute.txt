@@ -40,3 +40,4 @@ C:\Users\Think\Documents\GitHub\Timer\Timer\obj\Release\Timer.Properties.Resourc
 C:\Users\Think\Documents\GitHub\Timer\Timer\obj\Release\Timer.csproj.GenerateResource.Cache
 C:\Users\Think\Documents\GitHub\Timer\Timer\obj\Release\Timer.exe.manifest
 C:\Users\Think\Documents\GitHub\Timer\Timer\obj\Release\Timer.application
+C:\Users\Think\Documents\GitHub\Timer\Timer\obj\Release\Timer.Frm_Question.resources

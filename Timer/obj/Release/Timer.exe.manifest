@@ -4,7 +4,7 @@
   <description asmv2:iconFile="icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="Timer" version="1.0.0.6" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="Timer" version="1.0.0.8" language="neutral" processorArchitecture="msil" />
     <commandLine file="Timer.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -58,14 +58,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Timer.exe" size="5807080">
-      <assemblyIdentity name="Timer" version="1.0.0.6" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Timer.exe" size="5847528">
+      <assemblyIdentity name="Timer" version="1.0.0.8" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>CIg2FMTWTobpCfOz5e/lpo/Cc1w=</dsig:DigestValue>
+        <dsig:DigestValue>arbpnMqS25AdCyWJAvwENn9Iz50=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

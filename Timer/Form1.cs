@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Media;
 using System.IO;
+using System.Management;
+using Microsoft.Win32;
 //using global::Timer.MyResource.MediaPlayer;
 
 namespace Timer
@@ -80,7 +82,7 @@ namespace Timer
 
                     if (hourO.Value <= hour && minO.Value <= minute)
                     {
-                        MessageBox.Show("设定的时间己过!","Warning",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                        MessageBox.Show("设定的时间己过!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else if (hourO.Value >= hour || minO.Value > minute)
                     {
@@ -109,7 +111,7 @@ namespace Timer
                 {
                     if ((Timer_Hour.Value == 0) && (Timer_Min.Value == 0) && (Timer_Sec.Value == 0))
                     {
-                        MessageBox.Show("请设定时间参数！","TimerWarning",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                        MessageBox.Show("请设定时间参数！", "TimerWarning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                     h = 0; m = 0; s = 0;
@@ -117,9 +119,9 @@ namespace Timer
                     start.Top -= (pauseButton.Height + 4);
                     recoderButton.Visible = false;
                     pauseButton.Visible = true;
-                    h = Convert.ToInt32( this.Timer_Hour.Value);
-                    m = Convert.ToInt32( this.Timer_Min.Value);
-                    s = Convert.ToInt32( this.Timer_Sec.Value);
+                    h = Convert.ToInt32(this.Timer_Hour.Value);
+                    m = Convert.ToInt32(this.Timer_Min.Value);
+                    s = Convert.ToInt32(this.Timer_Sec.Value);
                     timer4.Enabled = true;
                     AlarmFunc.Enabled = false;
                     stopwatchFunc.Enabled = false;
@@ -160,7 +162,7 @@ namespace Timer
             groupBox1.Visible = false;
             this.Icon = MyResource.icon;
             this.Height = 210;             //XP&Win7:190; Win8-Win10: 210
-            this.Width =  335;             //335
+            this.Width = 345;             //335
             this.functions.Height = 73;
             timer3.Enabled = false;
             timer4.Enabled = false;
@@ -223,7 +225,7 @@ namespace Timer
                 this.PMLabel.Enabled = true;
                 this.AMLabel.Enabled = false;
             }
-            else if(Convert.ToInt32(DateTime.Now.Hour) < 12)
+            else if (Convert.ToInt32(DateTime.Now.Hour) < 12)
             {
                 this.PMLabel.Enabled = false;
                 this.AMLabel.Enabled = true;
@@ -241,7 +243,7 @@ namespace Timer
                 }
                 else
                 {
-                    this.Height += 123; 
+                    this.Height += 123;
                 }
                 functions.Visible = true;
 
@@ -278,7 +280,7 @@ namespace Timer
         {
             if (this.stopwatchFunc.Checked)
             {
-                this.Width = 516;
+                this.Width = 525;
 
                 //提醒事件
                 if (moreSet.Text.Equals("收起"))
@@ -286,10 +288,10 @@ namespace Timer
                     this.Height -= 33;
                     this.functions.Height = 73;
                     noteText.Visible = false;
-                    tipsLabel.Visible = false;    
+                    tipsLabel.Visible = false;
                 }
                 moreSet.Visible = false;
-                
+
                 //end
 
                 panel2.Visible = false;                //AlarmFunPanel
@@ -302,17 +304,17 @@ namespace Timer
                 panel1.Visible = false;
                 this.TimeLabel.Text = "00:00:00:00";
                 //stopwatchFunc.Top += 20;
-               // AlarmFunc.Top += 20;
+                // AlarmFunc.Top += 20;
                 //TimerFunc.Top += 20;
                 recoderButton.Visible = true;
                 //this.exchange.Checked = false;
                 this.exchange.Enabled = false;
                 groupBox1.Visible = true;
-
+                this.chk_Shutdown.Enabled = false;
             }
             else
             {
-                this.Width = 335;
+                this.Width = 345;
                 //panel1.Visible = true;
                 //stopwatch.Enabled = false;
                 this.TimeLabel.Text = "";
@@ -322,15 +324,16 @@ namespace Timer
                 //TimerFunc.Top -= 20;
                 this.exchange.Enabled = true;
                 groupBox1.Visible = false;
-                
+                this.chk_Shutdown.Enabled = true;
+
                 //提醒事件
                 if (moreSet.Text.Equals("收起"))
                 {
                     this.Height += 33;
                     this.functions.Height += 33;
-                    noteText.Visible = true ;
-                    tipsLabel.Visible = true ;
-                    moreSet.Visible = true ;
+                    noteText.Visible = true;
+                    tipsLabel.Visible = true;
+                    moreSet.Visible = true;
                 }
 
             }
@@ -344,7 +347,7 @@ namespace Timer
         /// <param name="e"></param>
         private void stopwatch_Tick(object sender, EventArgs e)
         {
-            stoptime.Remove(0,stoptime.Length);
+            stoptime.Remove(0, stoptime.Length);
             ms++;
             if (ms >= 99)
             {
@@ -361,7 +364,7 @@ namespace Timer
                 m = 0;
                 h++;
             }
-            stoptime.AppendFormat("{0:00}:{1:00}:{2:00}:{3:00}",h,m,s,ms);
+            stoptime.AppendFormat("{0:00}:{1:00}:{2:00}:{3:00}", h, m, s, ms);
             TimeLabel.Text = stoptime.ToString();
         }
 
@@ -374,7 +377,7 @@ namespace Timer
                 if (this.pauseButton.Text.Equals("继续"))
                 {
                     this.recoderButton.Enabled = false;
-                    MessageBox.Show("在暂停状态只能记录一次喔……","提示",MessageBoxButtons.OK,MessageBoxIcon.Information );
+                    MessageBox.Show("在暂停状态只能记录一次喔……", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -418,33 +421,43 @@ namespace Timer
 
         private void timer3_Tick(object sender, EventArgs e)
         {
-            
-            if ( (this.minO.Value <= Convert.ToInt32(DateTime.Now.Minute)) && (this.hourO.Value <= Convert.ToInt32(DateTime.Now.Hour)))
+
+            if ((this.minO.Value <= Convert.ToInt32(DateTime.Now.Minute)) && (this.hourO.Value <= Convert.ToInt32(DateTime.Now.Hour)))
             {
                 this.start.Text = "开始";
                 timer3.Enabled = false;
-           
+
                 stopwatchFunc.Enabled = true;
                 TimerFunc.Enabled = true;
                 label7.Visible = false;
                 //ringtone.Play();
                 ringtone.PlayLooping();
                 SetTop();
-                if (noteText.Text.Equals(""))
+
+                if (this.chk_Shutdown.Checked)
                 {
-                    MessageBox.Show("时间到！","Alarm Information",MessageBoxButtons.OK,MessageBoxIcon.Information );
+                    ShutDown();
+                }
+                else if (noteText.Text.Equals(""))
+                {
+                    MessageBox.Show("时间到！", "Alarm Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    message.Remove(0,message.Length);
+                    message.Remove(0, message.Length);
                     message.AppendFormat("时间到！您设有以下提醒：\n\n\t{0}", noteText.Text.Trim().ToString());
-                    MessageBox.Show(message.ToString(),"Alarm Information",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    MessageBox.Show(message.ToString(), "Alarm Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 ringtone.Stop();
+             
                 SetTop2();
             }
         }
 
+        private void ShutdownWindows()
+        {
+
+        }
         private void pauseButton_Click(object sender, EventArgs e)
         {
             if (this.pauseButton.Text.Equals("暂停"))
@@ -481,7 +494,7 @@ namespace Timer
                 this.exchange.Enabled = false;
 
                 //tips
-                if(moreSet.Visible == false)
+                if (moreSet.Visible == false)
                     moreSet.Visible = true;
                 //end
             }
@@ -516,16 +529,16 @@ namespace Timer
             //    //}
             //    //else if (h == 0 && m > 0)
             //    //{
-                   
+
             //    //}
             //}
             #endregion
-            stoptime.Remove(0,stoptime.Length);
+            stoptime.Remove(0, stoptime.Length);
             if (h >= 0 || m >= 0)
             {
                 s--;
-                if (s <= 0 &&(m > 0 || h > 0))
-                { 
+                if (s <= 0 && (m > 0 || h > 0))
+                {
                     s = 59;
                     if (m <= 0 && h > 0)
                     {
@@ -543,23 +556,27 @@ namespace Timer
                 else if (m <= 0 && h <= 0)
                 {
                     if (s <= 0)
-                   {
+                    {
                         timer4.Enabled = false;
                         Timer_Hour.Enabled = true;
                         Timer_Min.Enabled = true;
-                        Timer_Sec.Enabled = true; 
-                        
+                        Timer_Sec.Enabled = true;
+
                         start.Text = "开始";
                         AlarmFunc.Enabled = true;
                         stopwatchFunc.Enabled = true;
                         pauseButton.Text = "暂停";
-                        start.Top += (pauseButton.Height +4 );
+                        start.Top += (pauseButton.Height + 4);
                         AlarmFunc.Enabled = true;
                         stopwatchFunc.Enabled = true;
                         //ringtone.Play();
                         ringtone.PlayLooping();
                         SetTop();
-                        if (noteText.Text.Equals(""))
+                        if (chk_Shutdown.Checked)
+                        {
+                            this.ShutDown();
+                        }
+                        else if (noteText.Text.Equals(""))
                         {
                             MessageBox.Show("计时结束！", "Timer Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -570,17 +587,19 @@ namespace Timer
                             MessageBox.Show(message.ToString(), "Timer Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         ringtone.Stop();
+                   
+
                         SetTop2();
                     }
                 }
             }
-            TimeLabel.Text= (stoptime.AppendFormat("{0:00}:{1:00}:{2:00}",h,m,s).ToString());
+            TimeLabel.Text = (stoptime.AppendFormat("{0:00}:{1:00}:{2:00}", h, m, s).ToString());
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult close = new DialogResult();
-            close = MessageBox.Show("是否关闭程序？","Question",MessageBoxButtons.OKCancel,MessageBoxIcon.Question);
+            close = MessageBox.Show("是否关闭程序？", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (close == DialogResult.OK)
             {
                 e.Cancel = false;
@@ -609,13 +628,13 @@ namespace Timer
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            
+
             if (this.WindowState == FormWindowState.Minimized)
             {
                 this.ShowInTaskbar = false;
                 //notifyIcon1.Visible = true;
                 this.contextMenuStrip1.Items.Add(show);
-                if(i <= 1)
+                if (i <= 1)
                     notifyIcon1.ShowBalloonTip(500, "小提示", "最小化后我到这里了喔！", ToolTipIcon.Info);
                 i++;
             }
@@ -639,7 +658,7 @@ namespace Timer
                 noteText.Visible = true;
                 moreSet.Text = "收起";
             }
-            else if(moreSet.Text.Equals("收起"))
+            else if (moreSet.Text.Equals("收起"))
             {
                 this.Height -= 33;
                 functions.Height = 73;
@@ -654,7 +673,7 @@ namespace Timer
         {
             MouseEventArgs mouseClick = (MouseEventArgs)e;
 
-            if(mouseClick.Button == MouseButtons.Left)
+            if (mouseClick.Button == MouseButtons.Left)
             {
                 if (this.WindowState == FormWindowState.Minimized)
                 {
@@ -676,7 +695,7 @@ namespace Timer
         /// 显示上午下午标签
         /// </summary>
         /// <param name="exchange">是否勾选24小时制</param>
-        void funcAMPM( bool exchange)
+        void funcAMPM(bool exchange)
         {
             if (!exchange)   //如果没有选中
             {
@@ -783,8 +802,8 @@ namespace Timer
 
         private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
         {
-            this.contextMenuStrip2.Items.Remove (MinValue);
-            this.contextMenuStrip2.Items.Remove ( MaxValue);
+            this.contextMenuStrip2.Items.Remove(MinValue);
+            this.contextMenuStrip2.Items.Remove(MaxValue);
         }
 
 
@@ -939,7 +958,7 @@ namespace Timer
             {
                 hourO.Value = hourO.Maximum;
             }
-            
+
 
         }
 
@@ -950,6 +969,20 @@ namespace Timer
             else
                 this.TopMost = false;
         }
+
+        private void chk_Shutdown_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chk_Shutdown.Checked)
+            {
+                this.noteText.Enabled = false;
+            }
+            else
+            {
+                this.noteText.Enabled = true;
+            }
+            
+        }
+
         void SetTop()
         {
             if (checkBox1.Checked)
@@ -963,6 +996,19 @@ namespace Timer
             {
                 this.TopMost = true;
             }
+        }
+        private void ShutDown()
+        {
+            //DialogResult question = new DialogResult();
+            ////question = MessageBox.Show("时间到是否关闭计算机?","提示",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            //question = 
+            //if (question == DialogResult.OK)
+            //{
+
+            //}
+            Frm_Question frm = new Frm_Question();
+            frm._controlString = this.cmb_ShutDownOption.Text.Trim();
+            frm.ShowDialog();
         }
     }
 }

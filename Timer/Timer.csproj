@@ -85,6 +85,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_Question.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Question.Designer.cs">
+      <DependentUpon>Frm_Question.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,6 +101,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Question.resx">
+      <DependentUpon>Frm_Question.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
