@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Timer
@@ -23,7 +25,7 @@ namespace Timer
         {
             this.lab_time.Text = i.ToString();
             --i;
-            if (i <= 0)
+            if (i <= 2)
             {
                 ExecShutDown();
             }
@@ -31,6 +33,7 @@ namespace Timer
         private void ExecShutDown()
         {
             //引用自百度   https://jingyan.baidu.com/article/dca1fa6fa33a05f1a4405220.html
+            
             var startInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe");
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardInput = true;
@@ -44,19 +47,19 @@ namespace Timer
             {
                
                 case "休眠":
-                    myProcess.StandardInput.WriteLine("shutdown /h /f -t 0");
-                    Application.Exit();
+                    myProcess.StandardInput.WriteLine("shutdown /h /f -t 1");
                     break;
                 case "重启":
-                    myProcess.StandardInput.WriteLine("shutdown /r -t 0");
-                    Application.Exit();
+                    myProcess.StandardInput.WriteLine("shutdown /r -t 1");
                     break;
                default:
-                    myProcess.StandardInput.WriteLine("shutdown /s /f -t 0");
-                    Application.Exit();
+                    myProcess.StandardInput.WriteLine("shutdown /s /f -t 1");
                     break;
             }
-           
+            myProcess.StandardInput.WriteLine("exit");
+            Thread.Sleep(12);
+            Process.GetCurrentProcess().Kill();
+            
         }
         private void CancelShutDown()
         {

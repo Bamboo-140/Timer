@@ -167,6 +167,8 @@ namespace Timer
             timer3.Enabled = false;
             timer4.Enabled = false;
             stopwatch.Enabled = false;
+            AMLabel.Enabled = false;
+            PMLabel.Enabled = false;
             #region 用下面的函数代替了
             //if (Convert.ToInt32(this.timeNow.Hour) > 12)
             //{
@@ -431,7 +433,7 @@ namespace Timer
                 TimerFunc.Enabled = true;
                 label7.Visible = false;
                 //ringtone.Play();
-                ringtone.PlayLooping();
+
                 SetTop();
 
                 if (this.chk_Shutdown.Checked)
@@ -440,16 +442,20 @@ namespace Timer
                 }
                 else if (noteText.Text.Equals(""))
                 {
+                    ringtone.PlayLooping();
                     MessageBox.Show("时间到！", "Alarm Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ringtone.Stop();
                 }
                 else
                 {
+                    ringtone.PlayLooping();
                     message.Remove(0, message.Length);
                     message.AppendFormat("时间到！您设有以下提醒：\n\n\t{0}", noteText.Text.Trim().ToString());
                     MessageBox.Show(message.ToString(), "Alarm Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ringtone.Stop();
                 }
-                ringtone.Stop();
-             
+
+
                 SetTop2();
             }
         }
@@ -570,7 +576,7 @@ namespace Timer
                         AlarmFunc.Enabled = true;
                         stopwatchFunc.Enabled = true;
                         //ringtone.Play();
-                        ringtone.PlayLooping();
+
                         SetTop();
                         if (chk_Shutdown.Checked)
                         {
@@ -578,28 +584,30 @@ namespace Timer
                         }
                         else if (noteText.Text.Equals(""))
                         {
+                            ringtone.PlayLooping();
                             MessageBox.Show("计时结束！", "Timer Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ringtone.Stop();
                         }
                         else
                         {
+                            ringtone.PlayLooping();
                             message.Remove(0, message.Length);
                             message.AppendFormat("计时结束！您设有以下提醒：\n\n\t{0}", noteText.Text.Trim().ToString());
                             MessageBox.Show(message.ToString(), "Timer Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ringtone.Stop();
                         }
-                        ringtone.Stop();
-                   
-
                         SetTop2();
                     }
                 }
             }
             TimeLabel.Text = (stoptime.AppendFormat("{0:00}:{1:00}:{2:00}", h, m, s).ToString());
         }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+
             DialogResult close = new DialogResult();
             close = MessageBox.Show("是否关闭程序？", "Question", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
             if (close == DialogResult.OK)
             {
                 e.Cancel = false;
@@ -607,6 +615,7 @@ namespace Timer
             else
                 e.Cancel = true;
         }
+
 
         private void show_Click(object sender, EventArgs e)
         {
@@ -704,7 +713,7 @@ namespace Timer
                 timer2.Enabled = true;
                 format.Remove(0, format.Length);
                 format.Append("hh:mm:ss");
-                if (Convert.ToInt32(DateTime.Now.Hour) > 12)
+                if (Convert.ToInt32(DateTime.Now.Hour) >= 12)
                 {
                     this.PMLabel.Enabled = true;
                     this.AMLabel.Enabled = false;
@@ -899,65 +908,65 @@ namespace Timer
 
         private void Timer_Hour_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (Timer_Hour.Value > 0)
-            {
-                Timer_Hour.Value = Timer_Hour.Minimum;
-            }
-            else
-            {
-                Timer_Hour.Value = Timer_Hour.Maximum;
-            }
+            //if (Timer_Hour.Value > 0)
+            //{
+            //    Timer_Hour.Value = Timer_Hour.Minimum;
+            //}
+            //else
+            //{
+            //    Timer_Hour.Value = Timer_Hour.Maximum;
+            //}
 
         }
 
         private void Timer_Min_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (Timer_Min.Value > 0)
-            {
-                Timer_Min.Value = Timer_Min.Minimum;
-            }
-            else
-            {
-                Timer_Min.Value = Timer_Min.Maximum;
-            }
+            //if (Timer_Min.Value > 0)
+            //{
+            //    Timer_Min.Value = Timer_Min.Minimum;
+            //}
+            //else
+            //{
+            //    Timer_Min.Value = Timer_Min.Maximum;
+            //}
 
         }
 
         private void Timer_Sec_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (Timer_Sec.Value > 0)
-            {
-                Timer_Sec.Value = Timer_Sec.Minimum;
-            }
-            else
-            {
-                Timer_Sec.Value = Timer_Sec.Maximum;
-            }
+            //if (Timer_Sec.Value > 0)
+            //{
+            //    Timer_Sec.Value = Timer_Sec.Minimum;
+            //}
+            //else
+            //{
+            //    Timer_Sec.Value = Timer_Sec.Maximum;
+            //}
 
         }
 
         private void minO_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (minO.Value > 0)
-            {
-                minO.Value = minO.Minimum;
-            }
-            else
-            {
-                minO.Value = minO.Maximum;
-            }
+            //if (minO.Value > 0)
+            //{
+            //    minO.Value = minO.Minimum;
+            //}
+            //else
+            //{
+            //    minO.Value = minO.Maximum;
+            //}
         }
 
         private void hourO_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (hourO.Value > 0)
-            {
-                hourO.Value = hourO.Minimum;
-            }
-            else
-            {
-                hourO.Value = hourO.Maximum;
-            }
+            //if (hourO.Value > 0)
+            //{
+            //    hourO.Value = hourO.Minimum;
+            //}
+            //else
+            //{
+            //    hourO.Value = hourO.Maximum;
+            //}
 
 
         }
@@ -980,7 +989,7 @@ namespace Timer
             {
                 this.noteText.Enabled = true;
             }
-            
+
         }
 
         void SetTop()

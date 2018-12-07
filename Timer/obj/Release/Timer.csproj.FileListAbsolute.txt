@@ -33,7 +33,6 @@ C:\Users\Think\Documents\GitHub\Timer\Timer\bin\Release\Timer.exe.manifest
 C:\Users\Think\Documents\GitHub\Timer\Timer\bin\Release\Timer.application
 C:\Users\Think\Documents\GitHub\Timer\Timer\bin\Release\Timer.exe
 C:\Users\Think\Documents\GitHub\Timer\Timer\bin\Release\Timer.pdb
-C:\Users\Think\Documents\GitHub\Timer\Timer\obj\Release\Timer.csprojResolveAssemblyReference.cache
 C:\Users\Think\Documents\GitHub\Timer\Timer\obj\Release\Timer.Form1.resources
 C:\Users\Think\Documents\GitHub\Timer\Timer\obj\Release\Timer.MyResource.resources
 C:\Users\Think\Documents\GitHub\Timer\Timer\obj\Release\Timer.Properties.Resources.resources
